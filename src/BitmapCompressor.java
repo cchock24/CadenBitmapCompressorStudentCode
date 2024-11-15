@@ -23,7 +23,7 @@
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  *  @author Zach Blick
- *  @author YOUR NAME HERE
+ *  @author Caden Chock
  */
 public class BitmapCompressor {
 
@@ -32,10 +32,39 @@ public class BitmapCompressor {
      * and writes the results to standard output.
      */
     public static void compress() {
-
+        String s = BinaryStdIn.readString();
+        int n = s.length();
+        int r = get2(n);
         // TODO: complete compress()
+        boolean first = BinaryStdIn.readBoolean();
+        int extra = 0;
+        if(first){
+            extra = 1;
+        }
+        int current = extra;
+        int counter = 1;
+        for(int i = 0; i < s.length(); i++){
+            // Add to Counter
+            if(s.charAt(i) == current){
+
+            }
+            // Add number to Compressed File change current
+            else{
+
+            }
+        }
+
+
 
         BinaryStdOut.close();
+    }
+
+    public static int get2(int length){
+        int i = 0;
+        while(length > (int) Math.pow(2, i) - 1){
+            i++;
+        }
+        return i;
     }
 
     /**
