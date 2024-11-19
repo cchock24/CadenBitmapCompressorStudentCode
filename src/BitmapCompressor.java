@@ -49,15 +49,11 @@ public class BitmapCompressor {
             // Add number to Compressed File change current
             else{
                 BinaryStdOut.write(counter);
-                if(first){
-                    first = false;
-                }
-                else{
-                    first = true;
-                }
+                first = !first;
                 counter = 1;
             }
         }
+        BinaryStdOut.write(counter);
         BinaryStdOut.close();
     }
 
