@@ -32,39 +32,33 @@ public class BitmapCompressor {
      * and writes the results to standard output.
      */
     public static void compress() {
-        String s = BinaryStdIn.readString();
-        int n = s.length();
-        int r = get2(n);
         // TODO: complete compress()
         boolean first = BinaryStdIn.readBoolean();
-        int extra = 0;
-        if(first){
-            extra = 1;
-        }
-        int current = extra;
         int counter = 1;
-        for(int i = 0; i < s.length(); i++){
+        if(first){
+            BinaryStdOut.write(1, 8);
+        }
+        else{
+            BinaryStdOut.write(0,8);
+        }
+        while(!BinaryStdIn.isEmpty()){
             // Add to Counter
-            if(s.charAt(i) == current){
-
+            if(BinaryStdIn.readBoolean() == first){
+                counter++;
             }
             // Add number to Compressed File change current
             else{
-
+                BinaryStdOut.write(counter);
+                if(first){
+                    first = false;
+                }
+                else{
+                    first = true;
+                }
+                counter = 1;
             }
         }
-
-
-
         BinaryStdOut.close();
-    }
-
-    public static int get2(int length){
-        int i = 0;
-        while(length > (int) Math.pow(2, i) - 1){
-            i++;
-        }
-        return i;
     }
 
     /**
@@ -74,7 +68,23 @@ public class BitmapCompressor {
     public static void expand() {
 
         // TODO: complete expand()
-
+        int first = BinaryStdIn.readInt(8);
+        int num = 0b0;
+        if(first == 1){
+            num = 0b1;
+        }
+        while(!BinaryStdIn.isEmpty()){
+            int repeat = BinaryStdIn.readInt();
+            for(int i = 0; i < repeat; i++){
+                BinaryStdOut.write(num,1);
+            }
+            if(num == 0b0){
+                num = 0b1;
+            }
+            else{
+                num = 0b0;
+            }
+        }
         BinaryStdOut.close();
     }
 
