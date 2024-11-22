@@ -26,6 +26,7 @@
  *  @author Caden Chock
  */
 public class BitmapCompressor {
+    // Max Num that can be contained in a 8 bit int
 final static int MAX = 255;
     /**
      * Reads a sequence of bits from standard input, compresses them,
@@ -33,6 +34,7 @@ final static int MAX = 255;
      */
     public static void compress() {
         // TODO: complete compress()
+        // Metadata header says if binary starts with 0 or 1
         boolean first = BinaryStdIn.readBoolean();
         int counter = 1;
         if(first){
@@ -41,8 +43,9 @@ final static int MAX = 255;
         else{
             BinaryStdOut.write(0,8);
         }
+        // Iterates through binary recording number of 0/1s
         while(!BinaryStdIn.isEmpty()){
-            // Add to Counter
+            // Add to Counter make new if over Max
             if(BinaryStdIn.readBoolean() == first){
                 if(counter == MAX){
                     BinaryStdOut.write(counter,8);
@@ -69,11 +72,13 @@ final static int MAX = 255;
     public static void expand() {
 
         // TODO: complete expand()
+        // Reads metadata to get starting num
         int first = BinaryStdIn.readInt(8);
         int num = 0b0;
         if(first == 1){
             num = 0b1;
         }
+        // Iterates through decompressing
         while(!BinaryStdIn.isEmpty()){
             int repeat = BinaryStdIn.readInt(8);
             for(int i = 0; i < repeat; i++){
