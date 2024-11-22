@@ -26,7 +26,7 @@
  *  @author Caden Chock
  */
 public class BitmapCompressor {
-
+final static int MAX = 255;
     /**
      * Reads a sequence of bits from standard input, compresses them,
      * and writes the results to standard output.
@@ -44,16 +44,21 @@ public class BitmapCompressor {
         while(!BinaryStdIn.isEmpty()){
             // Add to Counter
             if(BinaryStdIn.readBoolean() == first){
+                if(counter == MAX){
+                    BinaryStdOut.write(counter,8);
+                    BinaryStdOut.write(0,8);
+                    counter = 0;
+                }
                 counter++;
             }
             // Add number to Compressed File change current
             else{
-                BinaryStdOut.write(counter);
+                BinaryStdOut.write(counter,8);
                 first = !first;
                 counter = 1;
             }
         }
-        BinaryStdOut.write(counter);
+        BinaryStdOut.write(counter,8);
         BinaryStdOut.close();
     }
 
@@ -70,7 +75,7 @@ public class BitmapCompressor {
             num = 0b1;
         }
         while(!BinaryStdIn.isEmpty()){
-            int repeat = BinaryStdIn.readInt();
+            int repeat = BinaryStdIn.readInt(8);
             for(int i = 0; i < repeat; i++){
                 BinaryStdOut.write(num,1);
             }
